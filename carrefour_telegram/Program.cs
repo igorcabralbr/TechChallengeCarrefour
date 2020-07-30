@@ -53,7 +53,8 @@ Como posso te ajudar?
 
                 else if (e.Message.Text.ToUpper() == "/HELP")
                 {
-                    botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Central de Relacionamento:
+                    botClient.SendTextMessageAsync(e.Message.Chat.Id, @" Entre em contato com nossa 
+Central de Relacionamento:
 São Paulo e Regiões Metropolitanas
 3004 2222
 Demais Localidades
