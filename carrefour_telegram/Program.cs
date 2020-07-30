@@ -55,10 +55,10 @@ Como posso te ajudar?
                 {
                     botClient.SendTextMessageAsync(e.Message.Chat.Id, @" Entre em contato com nossa 
 Central de Relacionamento:
-São Paulo e Regiões Metropolitanas
-3004 2222
-Demais Localidades
-0800 718 2222");
+*São Paulo e Regiões Metropolitanas
+ 3004 2222
+*Demais Localidades
+ 0800 718 2222");
                 }
 
                 else if (e.Message.Text.ToUpper() == "/CONTA")
