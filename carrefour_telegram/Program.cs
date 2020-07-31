@@ -18,6 +18,7 @@ namespace carrefour_telegram
         public static byte step = 0;
         public static Boolean loop = false;
         public static String timeToken;
+        public static String userToken;
         public static String contakey;
 
 
@@ -44,11 +45,11 @@ namespace carrefour_telegram
             {
                 if (e.Message.Text.ToUpper() == "OI")
                 {
-                    botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Oi {e.Message.From.FirstName}, tudo bem?" +
+                    botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Olá, tudo bem?" +
                     @"
 Como posso te ajudar?
 /conta (Para informações da conta) 
-/help  (Para demais informações)
+/help  (Para telefones de contato)
                  ");
                 }
 
@@ -85,7 +86,7 @@ Como posso te ajudar?
                 conn.Open();
                 SqlCommand cmdo = conn.CreateCommand();
                 cmdo.CommandType = CommandType.Text;
-                cmdo.CommandText = "SELECT FONE FROM dbo.Pessoal WHERE conta='"+conta+"'";
+                cmdo.CommandText = "SELECT * FROM dbo.Pessoal WHERE conta='"+conta+"'";
 
                 SqlDataReader dr;
                 dr = cmdo.ExecuteReader();
@@ -99,8 +100,9 @@ Digite ele aqui quando chegar");
                 
                  String timeStamp = GetToken(DateTime.Now);
                  timeToken = timeStamp;
-                 Console.WriteLine($"Enviando Token para o numero de celular +{dr.GetString(0)}");
-                 Console.WriteLine($"Código enviado: {timeStamp}");
+                 Console.WriteLine($"Enviando código para o numero de celular +{dr.GetString(2)}");
+                    Console.WriteLine($".........");
+                 Console.WriteLine($"{dr.GetString(1)} Seu código é: {timeStamp}");
 
                     step = 2; loop = false;
                 }
@@ -181,15 +183,15 @@ Digite:
                     {
                         if (dr.GetBoolean(1) == false)
                         {
-                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(2).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(3)} - Não Pago");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(2).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(3)} - Não Paga");
                         }
                         if (dr.GetBoolean(4) == false)
                         {
-                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(5).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(6)} - Não Pago");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(5).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(6)} - Não Paga");
                         }
                         if (dr.GetBoolean(7) == false)
                         {
-                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(9)} - Não Pago");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(9)} - Não Paga");
                         }
                         step = 4; loop = false;
 
@@ -200,15 +202,15 @@ Digite:
                     {
                         if (dr.GetBoolean(1) == true)
                         {
-                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(2).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(3)} - Pago");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(2).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(3)} - Paga");
                         }
                         if (dr.GetBoolean(4) == true)
                         {
-                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(5).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(6)} - Pago");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(5).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(6)} - Paga");
                         }
                         if (dr.GetBoolean(7) == true)
                         {
-                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(9)} - Pago");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(9)} - Paga");
                         }
 
                         //se tudo pago
@@ -227,7 +229,7 @@ Gostaria de consultar mais alguma coisa?,
 
                 else if (e.Message.Text.ToUpper() == "/SAIR")
                 {
-                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, "O Carrefour agradece a sua preferência, volte sempre!");
+                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, "O Banco Carrefour agradece a sua preferência, volte sempre!");
                     step = 0;
                 }
                 else
