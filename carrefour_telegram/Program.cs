@@ -20,6 +20,7 @@ namespace carrefour_telegram
         public static String timeToken;
         public static String contakey;
 
+
         static void Main(string[] args)
         {
             botClient.OnMessage += BotClient_OnMessage;
@@ -140,7 +141,7 @@ Digite:
                 }
             }
 
-            // STEP 3 (FATURAS / SALDO)
+// STEP 3 (FATURAS / SALDO)
             if (step == 3 && loop)
             {
                 if (e.Message.Text.ToUpper() == "/SALDO")
@@ -157,6 +158,11 @@ Digite:
                     botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Seu saldo é de R${dr.GetDecimal(0)},00");
 
                     conn.Close();
+                    await Task.Delay(1000);
+                    botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Gostaria de consultar mais alguma coisa?,
+/fatura (Informações sobre pagamento de faturas)
+/saldo (Consulta do seu saldo)
+/sair  (Encerra a consulta)");
                 }
 
                 else if (e.Message.Text.ToUpper() == "/FATURA")
@@ -185,6 +191,8 @@ Digite:
                         {
                             await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(9)} - Não Pago");
                         }
+                        step = 4; loop = false;
+
                     }
 
                     //fatura paga
@@ -203,9 +211,20 @@ Digite:
                             await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}, R${dr.GetDecimal(9)} - Pago");
                         }
 
+                        //se tudo pago
+                        if (dr.GetBoolean(1) == true && dr.GetBoolean(4) == true && dr.GetBoolean(7) == true)
+                        {
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Todas suas contas estão em dia!
+Gostaria de consultar mais alguma coisa?,
+/fatura (Informações sobre pagamento de faturas)
+/saldo (Consulta do seu saldo)
+/sair  (Encerra a consulta)");
+                        }
+
                     }
-                            conn.Close();
+                    conn.Close();
                 }
+
                 else if (e.Message.Text.ToUpper() == "/SAIR")
                 {
                     await botClient.SendTextMessageAsync(e.Message.Chat.Id, "O Carrefour agradece a sua preferência, volte sempre!");
@@ -220,7 +239,69 @@ O que você gostaria de consultar?
 /sair  (Encerra a consulta)");
                 }
             }
-        loop = true;
+
+
+
+// CONSULTA DOS NUMEROS DE BOLETOS NAO PAGOS
+            if (step == 4 && !loop)
+            {
+                await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Gostaria que eu te enviasse o número do código  
+de barras das faturas não pagas ?
+/sim 
+/nao");
+            }
+            if (step == 4 && loop)
+            {
+                if (e.Message.Text.ToUpper() == "/SIM")
+                {
+                    // ENVIA NUMERO DOS BOLETOS
+
+                    conn.Open();
+                    SqlCommand cmdo = conn.CreateCommand();
+                    cmdo.CommandType = CommandType.Text;
+                    cmdo.CommandText = "SELECT * FROM dbo.FATURAS WHERE conta='" + contakey + "'";
+
+                    SqlDataReader dr;
+                    dr = cmdo.ExecuteReader();
+                    dr.Read();
+
+                    //fatura nao paga
+                    if (dr.GetBoolean(1) == false || dr.GetBoolean(4) == false || dr.GetBoolean(7) == false)
+                    {
+                        if (dr.GetBoolean(1) == false)
+                        {
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(2).ToString("dd/MM/yyyy")}");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"{dr.GetString(10)}");
+                        }
+                        if (dr.GetBoolean(4) == false)
+                        {
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(5).ToString("dd/MM/yyyy")}");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"{dr.GetString(11)}");
+                        }
+                        if (dr.GetBoolean(7) == false)
+                        {
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Vencimento em {dr.GetDateTime(8).ToString("dd/MM/yyyy")}");
+                            await botClient.SendTextMessageAsync(e.Message.Chat.Id, $"{dr.GetString(12)}");
+                        }
+                    }
+                    conn.Close();
+                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Gostaria de consultar mais alguma coisa?,
+/fatura (Informações sobre pagamento de faturas)
+/saldo (Consulta do seu saldo)
+/sair  (Encerra a consulta)");
+                    step = 3;
+                }
+                if ((e.Message.Text.ToUpper() == "/NAO") || (e.Message.Text.ToUpper() == "/NÃO"))
+                {
+                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Hum, Gostaria de consultar mais alguma coisa?,
+/fatura (Informações sobre pagamento de faturas)
+/saldo (Consulta do seu saldo)
+/sair  (Encerra a consulta)");
+                    step = 3;
+                }
+
+            }
+            loop = true;
         }
     }
 }
