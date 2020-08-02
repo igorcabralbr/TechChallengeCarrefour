@@ -30,12 +30,11 @@ CREATE TABLE [dbo].[Faturas] (<br>
     PRIMARY KEY CLUSTERED ([CONTA] ASC)<br>
 );<br>
 onde<br>
-Conta: Numero da conta, chave da tabela<br>
+Conta: Número da conta, chave da tabela<br>
 ST0,ST1,ST2: Status das faturas (true = paga / false = não paga)<br>
 FAT0,FAT1,FAT2: Data de vencimento das faturas<br>
 VAL1,VAL2,VAL3: Valor das faturas<br>
 COD1,COD2,COD3: Número do código de barras das faturas<br>
-<br>
 <br>
 <br>
 2.2 - Tabela Pessoal<br>
@@ -50,7 +49,7 @@ CREATE TABLE [dbo].[Pessoal] (<br>
 );<br>
 <br>
 Onde<br>
-Conta: Numero da conta, chave da tabela<br>
+Conta: Número da conta, chave da tabela<br>
 Nome: Nome do correntista<br>
 Fone: Número do telefone móvel do correntista<br>
 Saldo: Saldo do correntista<br>
