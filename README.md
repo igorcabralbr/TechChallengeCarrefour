@@ -2,8 +2,8 @@
 Criação de uma solução técnica que otimiza a comunicação entre clientes e Banco Carrefour
 
 1   - Variáveis
-Substituir <change1> pelo token fornecido pelo BotFather
-Substituir <change2> pela 'connection string' do seu DB
+Substituir ">changeme1" pelo token fornecido pelo BotFather
+Substituir ">changeme2" pela 'connection string' do seu DB
 
 
 2   - Tabelas
