@@ -1,14 +1,14 @@
 ﻿# TechChallengeCarrefour
 Criação de uma solução técnica que otimiza a comunicação entre clientes e Banco Carrefour
 
-<b>1   - Variáveis</b>
+<u><b>1   - Variáveis</b></u><br>
 Substituir ">changeme1" pelo token fornecido pelo BotFather<br>
 Substituir ">changeme2" pela 'connection string' do seu DB<br>
 
 
-<b>2   - Tabelas</b>
+<u><b>2   - Tabelas</b></u><br>
 
-2.1 - Tabela Faturas<br>
+<b>2.1 - Tabela Faturas</b><br>
 Possui as três últimas contas dos correntistas<br>
 
 CREATE TABLE [dbo].[Faturas] (<br>
@@ -35,7 +35,7 @@ FAT0,FAT1,FAT2: Data de vencimento das faturas<br>
 VAL1,VAL2,VAL3: Valor das faturas<br>
 COD1,COD2,COD3: Número do código de barras das faturas<br>
 <br>
-2.2 - Tabela Pessoal<br>
+<b>2.2 - Tabela Pessoal</b><br>
 Possui as informações pessoais dos correntistas<br>
 <br>
 CREATE TABLE [dbo].[Pessoal] (<br>
