@@ -70,7 +70,7 @@ Central de Relacionamento:
                 }
                 else
                 {
-                    botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Olá {e.Message.From.FirstName}, tudo bem?" +
+                    botClient.SendTextMessageAsync(e.Message.Chat.Id, $"Hum, Opção inválida" +
                     @"
 Como posso te ajudar?
 /conta (Para informações da conta) 
@@ -134,8 +134,8 @@ O que você gostaria de consultar?
                 }
                 else
                 {
-                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Hum, não encontramos o número  
-informado, vamos tentar denovo?
+                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Hum, o código informado é inválido  
+Vamos tentar denovo?
 Digite: 
 /conta (Para informações da conta) 
 /help  (Para demais informações)");
@@ -248,7 +248,7 @@ O que você gostaria de consultar?
             if (step == 4 && !loop)
             {
                 await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Gostaria que eu te enviasse o número do código  
-de barras das faturas não pagas ?
+de barras da(s) fatura(s) não paga(s) ?
 /sim 
 /nao");
             }
@@ -293,7 +293,7 @@ de barras das faturas não pagas ?
 /sair  (Encerra a consulta)");
                     step = 3;
                 }
-                if ((e.Message.Text.ToUpper() == "/NAO") || (e.Message.Text.ToUpper() == "/NÃO"))
+                else if ((e.Message.Text.ToUpper() == "/NAO") || (e.Message.Text.ToUpper() == "/NÃO"))
                 {
                     await botClient.SendTextMessageAsync(e.Message.Chat.Id, @"Hum, Gostaria de consultar mais alguma coisa?,
 /fatura (Informações sobre pagamento de faturas)
@@ -301,7 +301,14 @@ de barras das faturas não pagas ?
 /sair  (Encerra a consulta)");
                     step = 3;
                 }
-
+                else
+                {
+                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, @" Hum, opção inválida, 
+Gostaria que eu te enviasse o número do   
+código de barras da(s) fatura(s) não paga(s) ?
+/sim 
+/nao");
+                }
             }
             loop = true;
         }
