@@ -1,6 +1,6 @@
 
 # TechChallengeCarrefour
-Criação de uma solução técnica que otimize a comunicação entre clientes e Banco Carrefour
+Criação de uma solução técnica que otimize a comunicação entre clientes e o Banco Carrefour
 <br>
 <br>
 <b>* 1   - Variáveis</b><br>
@@ -29,7 +29,8 @@ CREATE TABLE [dbo].[Faturas] (<br>
     [COD2]  NVARCHAR (50)  NULL,<br>
     PRIMARY KEY CLUSTERED ([CONTA] ASC)<br>
 );<br>
-onde<br>
+<br>
+Onde<br>
 Conta: Número da conta, chave da tabela<br>
 ST0,ST1,ST2: Status das faturas (true = paga / false = não paga)<br>
 FAT0,FAT1,FAT2: Data de vencimento das faturas<br>
