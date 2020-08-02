@@ -2,14 +2,13 @@
 # TechChallengeCarrefour
 Criação de uma solução técnica que otimize a comunicação entre clientes e Banco Carrefour
 -----------------------------------------------------------------------------------------
-
-<u><b>1   - Variáveis</b></u><br>
+<b>1   - Variáveis</b><br>
 Substituir ">changeme1" pelo token fornecido pelo BotFather<br>
 Substituir ">changeme2" pela 'connection string' do seu DB<br>
 <br>
 -----------------------------------
 <br>
-<u><b>2   - Tabelas</b></u><br>
+<b>2   - Tabelas</b><br>
 
 <b>2.1 - Tabela Faturas</b><br>
 Possui as três últimas contas dos correntistas<br>
