@@ -12,8 +12,8 @@ namespace carrefour_telegram
 {
     class Program
     {
-        private static TelegramBotClient botClient = new TelegramBotClient("1338000475:AAGZ9M5MZL4-dpU3xED_Hc8xQc_X4w3h4Hs");
-        private static SqlConnection conn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\Jim\Documents\DB_test.mdf;Integrated Security = True; Connect Timeout = 30");
+        private static TelegramBotClient botClient = new TelegramBotClient(">changeme1");
+        private static SqlConnection conn = new SqlConnection(@">changeme2");
 
         public static byte step = 0;
         public static Boolean loop = false;
